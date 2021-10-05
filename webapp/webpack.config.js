@@ -71,6 +71,9 @@ const config = {
   optimization: { minimize: false },
   plugins,
   module: { rules },
+  watchOptions: {
+    poll: true
+  },
   devServer: {
     historyApiFallback: true,
     hot: true,
