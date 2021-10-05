@@ -1,56 +1,56 @@
 import React from 'react'
 import { arrayOf, string, bool, number, shape } from 'prop-types'
 import { css } from '@emotion/core'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+import TxTableRow from './TxTableRow'
 
 const styles = css`
- .header {
-   font-weight: bold;
- }
+  min-width: 650px;
+  max-width: 720px;
 `
-
-const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
 export function TxTable ({ data }) {
   return (
-    <table css={styles}>
-      <tbody>
-        <tr className='header'>
-          <td >ID</td>
-          <td >User ID</td>
-          <td >Description</td>
-          <td >Merchant ID</td>
-          <td >Debit</td>
-          <td >Credit</td>
-          <td >Amount</td>
-        </tr>
-        {
-          data.map(tx => {
-            const { id, user_id: userId, description, merchant_id: merchantId, debit, credit, amount } = tx
-            return (
-              <tr data-testid={`transaction-${id}`} key={`transaction-${id}`}>
-                <td data-testid={makeDataTestId(id, 'id')}>{id}</td>
-                <td data-testid={makeDataTestId(id, 'userId')}>{userId}</td>
-                <td data-testid={makeDataTestId(id, 'description')}>{description}</td>
-                <td data-testid={makeDataTestId(id, 'merchant')}>{merchantId}</td>
-                <td data-testid={makeDataTestId(id, 'debit')}>{debit}</td>
-                <td data-testid={makeDataTestId(id, 'credit')}>{credit}</td>
-                <td data-testid={makeDataTestId(id, 'amount')}>{amount}</td>
-              </tr>
-            )
-          })
-        }
-      </tbody>
-    </table>
-
+    <TableContainer component={Paper} css={styles}>
+      <Table aria-label='transaction table'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Id</TableCell>
+            <TableCell align='left'>User</TableCell>
+            <TableCell align='left'>Description</TableCell>
+            <TableCell align='left'>Merchant</TableCell>
+            <TableCell align='left'>Debit</TableCell>
+            <TableCell align='left'>Credit</TableCell>
+            <TableCell align='right'>Amount</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((tx) => (
+            <TxTableRow data={tx} key={`transaction-${tx.id}`} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 
 TxTable.propTypes = {
   data: arrayOf(shape({
     id: string,
-    user_id: string,
+    user: shape({
+      firstName: string,
+      lastName: string
+    }),
     description: string,
-    merchant_id: string,
+    merchant: shape({
+      name: string
+    }),
     debit: bool,
     credit: bool,
     amount: number
