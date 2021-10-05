@@ -29,7 +29,13 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: app
+      POSTGRES_DB: homework_dev
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9000:8080
 
 volumes:
   postgres-data:

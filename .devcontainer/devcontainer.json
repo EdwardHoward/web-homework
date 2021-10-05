@@ -14,7 +14,7 @@
 			"previewLimit": 50,
 			"server": "localhost",
 			"port": 5432,
-			"database": "postgres",
+			"database": "homework_dev",
 			"username": "postgres",
 			"password": "postgres"
 		}]
@@ -28,7 +28,7 @@
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [4000, 4001, 5432],
+	"forwardPorts": [4000, 4001, 5432, 9000],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "mix deps.get"
