@@ -1,0 +1,4 @@
+fragment merchantData on Merchant {
+    id
+    name
+}
