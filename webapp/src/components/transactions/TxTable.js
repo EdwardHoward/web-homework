@@ -8,16 +8,16 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import TxTableRow from './TxTableRow'
+import { TxTableRow } from './TxTableRow'
 
 const styles = css`
   min-width: 650px;
   max-width: 720px;
 `
 
-export function TxTable ({ data }) {
+export function TxTable({ data }) {
   return (
-    <TableContainer component={Paper} css={styles}>
+    <TableContainer component={Paper} css={styles} data-testid='transaction-table'>
       <Table aria-label='transaction table'>
         <TableHead>
           <TableRow>
