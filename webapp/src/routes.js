@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './pages/home'
+import { Transactions, Transaction } from './pages/transactions'
 
 function AppRouter () {
   return (
@@ -10,7 +11,7 @@ function AppRouter () {
         <nav css={navStyle}>
           <ul >
             <li>
-              <Link to='/'>Home</Link>
+              <Link to='/transactions'>Transactions</Link>
             </li>
             <li>
               <Link to='/another'>Another route</Link>
@@ -19,6 +20,8 @@ function AppRouter () {
         </nav>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
+          <Route component={Transaction} exact path='/transactions/:id' />
+          <Route component={Transactions} exact path='/transactions' />
           <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
         </div>
       </div>
