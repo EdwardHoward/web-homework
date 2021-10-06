@@ -1,0 +1,18 @@
+#import "./fragments/userFragment.gql"
+#import "./fragments/merchantFragment.gql"
+
+query GetTransaction($id: ID!) {
+    transaction(id: $id) {
+        id
+        user {
+            ...userData
+        }
+        description
+        merchant {
+            ...merchantData
+        }
+        debit
+        credit
+        amount
+    }
+}
