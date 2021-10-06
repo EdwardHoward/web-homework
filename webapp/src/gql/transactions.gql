@@ -1,13 +1,15 @@
+#import "./fragments/userFragment.gql"
+#import "./fragments/merchantFragment.gql"
+
 query GetTransactions {
     transactions {
         id
         user {
-            firstName
-            lastName
+            ...userData
         }
         description
         merchant {
-            name
+            ...merchantData
         }
         debit
         credit
