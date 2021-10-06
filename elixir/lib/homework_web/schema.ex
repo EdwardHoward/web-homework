@@ -15,6 +15,13 @@ defmodule HomeworkWeb.Schema do
       resolve(&TransactionsResolver.transactions/3)
     end
 
+    @desc "Get Transaction by id"
+    field(:transaction, :transaction) do
+      arg(:id, non_null(:id))
+
+      resolve(&TransactionsResolver.get_transaction/3)
+    end
+
     @desc "Get all Users"
     field(:users, list_of(:user)) do
       resolve(&UsersResolver.users/3)

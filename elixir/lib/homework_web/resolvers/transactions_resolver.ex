@@ -25,6 +25,13 @@ defmodule HomeworkWeb.Resolvers.TransactionsResolver do
   end
 
   @doc """
+  Get a transaction
+  """
+  def get_transaction(_root, %{id: id}, _info) do
+    {:ok, Transactions.get_transaction!(id)}
+  end
+
+  @doc """
   Create a new transaction
   """
   def create_transaction(_root, args, _info) do
