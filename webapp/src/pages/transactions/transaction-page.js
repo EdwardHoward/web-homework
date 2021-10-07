@@ -5,7 +5,7 @@ import { TxTable } from '../../components/transactions/TxTable'
 import { useParams } from 'react-router-dom'
 import { Query } from '../../components/query'
 
-export function Transaction() {
+export function Transaction () {
   const { id } = useParams()
   const { loading, error, data = {} } = useQuery(GetTransaction, {
     variables: {
@@ -14,7 +14,7 @@ export function Transaction() {
   })
 
   return (
-    <Query loading={loading} error={error}>
+    <Query error={error} loading={loading}>
       <TxTable data={[data.transaction]} />
     </Query>
   )

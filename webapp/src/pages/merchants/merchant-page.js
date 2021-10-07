@@ -14,7 +14,7 @@ export function Merchant () {
   })
 
   return (
-    <Query loading={loading} error={error}>
+    <Query error={error} loading={loading}>
       <MerchantTable data={[data.merchant]} />
     </Query>
   )
