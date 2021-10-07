@@ -8,13 +8,17 @@ import { useMutation } from '@apollo/client'
 import { EditableField, EditableCheckboxField } from '../editableField';
 import { formReducer } from '../../reducers/formReducer';
 import UpdateTransaction from '../../gql/mutations/updateTransaction.gql'
+import css from '@emotion/css';
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
+const styles = css`
+  &:last-child td, &:last-child th {
+    border: none;
+  }
+`
 export function TxTableRow({ data }) {
   const { id, user, userId, merchantId, description, merchant, debit, credit, amount } = data
-
-  console.log(credit, debit);
   const [isEditing, setIsEditing] = useState(false);
 
   const [fields, dispatch] = useReducer(formReducer, {
@@ -34,7 +38,6 @@ export function TxTableRow({ data }) {
   function handleSaveClick() {
     setIsEditing(false);
 
-    // do mutation
     updateTransaction({
       variables: {
         id,
@@ -48,10 +51,14 @@ export function TxTableRow({ data }) {
     })
   }
 
+  function setValue(field, value) {
+    dispatch({ type: 'set_field_value', field, value })
+  }
+
   return (
     <TableRow
       data-testid='tx-table-row'
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      css={styles}
     >
       <TableCell align='left' data-testid={makeDataTestId(id, 'id')}>
         <div>
@@ -62,36 +69,53 @@ export function TxTableRow({ data }) {
         <div>{`${user.firstName} ${user.lastName}`}</div>
       </TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'description')}>
-        <EditableField editing={isEditing} value={fields.description.value} error={fields.amount.error}
+        <EditableField
+          editing={isEditing}
+          value={fields.description.value}
+          error={fields.amount.error}
           onChange={({ target: { value } }) =>
-            dispatch({ type: 'set_field_value', field: 'description', value })}
+            setValue('description', value)
+          }
         />
       </TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'merchant')}>
         <div>{merchant.name}</div>
       </TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'debit')}>
-        <EditableCheckboxField editing={isEditing} value={fields.debit.value} error={fields.amount.error}
+        <EditableCheckboxField
+          editing={isEditing}
+          value={fields.debit.value}
+          error={fields.amount.error}
           onChange={({ target: { checked } }) =>
-            dispatch({ type: 'set_field_value', field: 'debit', value: checked })}
+            setValue('debit', checked)
+          }
         />
       </TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'credit')}>
-        <EditableCheckboxField editing={isEditing} value={fields.credit.value} error={fields.amount.error}
+        <EditableCheckboxField
+          editing={isEditing}
+          value={fields.credit.value}
+          error={fields.amount.error}
           onChange={({ target: { checked } }) =>
-            dispatch({ type: 'set_field_value', field: 'credit', value: checked })}
+            setValue('credit', checked)
+          }
         />
       </TableCell>
       <TableCell align='right' data-testid={makeDataTestId(id, 'amount')}>
-        <EditableField editing={isEditing} value={fields.amount.value} error={fields.amount.error}
+        <EditableField
+          editing={isEditing}
+          value={fields.amount.value}
+          error={fields.amount.error}
           onChange={({ target: { value } }) =>
-            dispatch({ type: 'set_field_value', field: 'amount', value })}
-        />
+            setValue('amount', value)
+          }
+        /> 
       </TableCell>
+     
       <TableCell align='right' data-testid={makeDataTestId(id, 'actions')}>
         <RowActions isEditing={isEditing} handleEditClick={handleEditClick} handleSaveClick={handleSaveClick} />
       </TableCell>
-    </TableRow>
+    </TableRow >
   )
 }
 
