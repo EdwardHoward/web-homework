@@ -12,7 +12,20 @@ import { TxTableRow } from './TxTableRow'
 
 const styles = css`
   min-width: 650px;
-  max-width: 720px;
+  max-width: 75%;
+
+  .MuiTableCell-head {
+    background: #e0e0e0;
+    border-right: 1px solid #c9c9c9;
+  }
+
+  .MuiTableCell-head:last-child {
+    border-right: none;
+  }
+
+  .Mui-disabled {
+    color: black;
+  }
 `
 
 export function TxTable({ data }) {
@@ -28,6 +41,7 @@ export function TxTable({ data }) {
             <TableCell align='left'>Debit</TableCell>
             <TableCell align='left'>Credit</TableCell>
             <TableCell align='right'>Amount</TableCell>
+            <TableCell></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
