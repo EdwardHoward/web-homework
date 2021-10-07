@@ -1,10 +1,11 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransaction from '../../gql/getTransaction.gql'
 import { TxTable } from '../../components/transactions/TxTable'
 import { useParams } from 'react-router-dom'
+import { Query } from '../../components/query'
 
-export function Transaction () {
+export function Transaction() {
   const { id } = useParams()
   const { loading, error, data = {} } = useQuery(GetTransaction, {
     variables: {
@@ -12,26 +13,9 @@ export function Transaction () {
     }
   })
 
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
-
   return (
-    <Fragment>
-      Transaction {id}
+    <Query loading={loading} error={error}>
       <TxTable data={[data.transaction]} />
-    </Fragment>
+    </Query>
   )
 }

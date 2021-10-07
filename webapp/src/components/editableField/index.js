@@ -1,10 +1,10 @@
 import React from 'react';
 import { Checkbox, TextField } from '@mui/material';
 
-export function EditableField({ value, editing, onChange }) {
+export function EditableField({ value, editing, onChange, css }) {
   if (editing) {
     return (
-      <TextField onChange={onChange} value={value} variant="standard" />
+      <TextField onChange={onChange} value={value} variant="standard" css={css} />
     )
   }
 

@@ -28,7 +28,37 @@ const styles = css`
   }
 `
 
-export function TxTable({ data }) {
+export function TxTable({ data, updateTransaction, createTransaction }) {
+  const [updateTransaction] = useMutation(UpdateTransaction);
+
+  function handleSaveClick() {
+    updateTransaction({
+      variables: {
+        id,
+        userId,
+        merchantId,
+        description: fields.description.value,
+        debit: fields.debit.value,
+        credit: fields.credit.value,
+        amount: Number(fields.amount.value)
+      }
+    })
+  }
+
+  function handleCreateClick() {
+    createTransaction({
+      variables: {
+        id,
+        userId,
+        merchantId,
+        description: fields.description.value,
+        debit: fields.debit.value,
+        credit: fields.credit.value,
+        amount: Number(fields.amount.value)
+      }
+    })
+  }
+
   return (
     <TableContainer component={Paper} css={styles} data-testid='transaction-table'>
       <Table aria-label='transaction table'>
@@ -46,8 +76,19 @@ export function TxTable({ data }) {
         </TableHead>
         <TableBody>
           {data.map((tx) => (
-            <TxTableRow data={tx} key={`transaction-${tx.id}`} />
+            <TxTableRow data={tx} key={`transaction-${tx.id}`} onSave={handleUpdateClick} />
           ))}
+          <TxTableRow data={{
+            id: null,
+            user: null,
+            userId: null,
+            merchantId: null,
+            description: "",
+            merchant: null,
+            debit: false,
+            credit: false,
+            amount: null
+          }} onSave={handleCreateClick}/>
         </TableBody>
       </Table>
     </TableContainer>
