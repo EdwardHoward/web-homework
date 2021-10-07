@@ -1,0 +1,11 @@
+mutation updateTransaction($id: ID!, $userId: ID!, $merchantId: ID!, $description: String, $debit: Boolean, $credit: Boolean, $amount: Int) {
+    updateTransaction(id: $id, userId: $userId, merchantId: $merchantId, description: $description, debit: $debit, credit: $credit, amount: $amount) {
+        id
+        userId
+        merchantId
+        description
+        debit
+        credit
+        amount
+    }
+}
