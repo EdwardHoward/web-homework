@@ -42,15 +42,15 @@ describe('Roman Numeral Util', () => {
   })
 
   it('should convert 9 to IX', () => {
-    expect(toRomanNumeral(9)).toBe('IX');
+    expect(toRomanNumeral(9)).toBe('IX')
   })
 
   it('should convert 90 to XC', () => {
-    expect(toRomanNumeral(90)).toBe('XC');
+    expect(toRomanNumeral(90)).toBe('XC')
   })
 
   it('should convert 900 to CM', () => {
-    expect(toRomanNumeral(900)).toBe('CM');
+    expect(toRomanNumeral(900)).toBe('CM')
   })
 
   it('should convert 1404 to MCDIV', () => {

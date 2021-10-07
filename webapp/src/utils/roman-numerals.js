@@ -11,15 +11,15 @@ const letters = [
   { letter: 'I', value: 1 }
 ]
 
-export function toRomanNumeral(num) {
+export function toRomanNumeral (num) {
   let roman = ''
 
   for (let letterIndex in letters) {
-    const letter = letters[letterIndex];
+    const letter = letters[letterIndex]
     const count = Math.floor(num / letter.value)
 
     if (count === 4) {
-      roman += letter.letter + letters[letterIndex - 1].letter;
+      roman += letter.letter + letters[letterIndex - 1].letter
     } else {
       for (let i = 0; i < count; i++) {
         roman += letter.letter
