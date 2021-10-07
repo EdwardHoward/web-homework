@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react'
+import React, { Fragment } from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransaction from '../../gql/getTransaction.gql'
 import { TxTable } from '../../components/transactions/TxTable'
@@ -11,10 +11,6 @@ export function Transaction () {
       id
     }
   })
-
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
 
   if (loading) {
     return (

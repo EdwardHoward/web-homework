@@ -1,30 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetTransactions from '../../gql/transactions.gql'
 import { TxTable } from '../../components/transactions/TxTable'
+import { Query } from '../../components/query';
 
-export function Transactions () {
+export function Transactions() {
   const { loading, error, data = {} } = useQuery(GetTransactions)
 
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
-
   return (
-    <Fragment>
+    <Query loading={loading} error={error}>
       <TxTable data={data.transactions} />
-    </Fragment>
+    </Query>
   )
 }
