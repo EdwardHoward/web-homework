@@ -8,6 +8,10 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     {:ok, Users.list_users(args)}
   end
 
+  def get_user(_root, %{id: id}, _info) do
+    {:ok, Users.get_user!(id)}
+  end
+
   @doc """
   Creates a user
   """

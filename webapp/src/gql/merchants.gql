@@ -1,0 +1,7 @@
+#import "./fragments/merchantFragment.gql"
+
+query GetMerchants {
+    merchants {
+        ...merchantData
+    }
+}

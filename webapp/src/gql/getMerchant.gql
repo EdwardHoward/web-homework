@@ -1,0 +1,7 @@
+#import "./fragments/merchantFragment.gql"
+
+query GetMerchant($id: ID!) {
+    merchant(id: $id) {
+        ...merchantData
+    }
+}

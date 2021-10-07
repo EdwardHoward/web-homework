@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './pages/home'
 import { Transactions, Transaction } from './pages/transactions'
+import { Users, User } from './pages/users'
+import { Merchants, Merchant } from './pages/merchants'
 
 function AppRouter () {
   return (
@@ -14,7 +16,10 @@ function AppRouter () {
               <Link to='/transactions'>Transactions</Link>
             </li>
             <li>
-              <Link to='/another'>Another route</Link>
+              <Link to='/users'>Users</Link>
+            </li>
+            <li>
+              <Link to='/merchants'>Merchants</Link>
             </li>
           </ul>
         </nav>
@@ -22,6 +27,12 @@ function AppRouter () {
           <Route component={Home} exact path='/' />
           <Route component={Transaction} exact path='/transactions/:id' />
           <Route component={Transactions} exact path='/transactions' />
+
+          <Route component={User} exact path='/users/:id' />
+          <Route component={Users} exact path='/users' />
+
+          <Route component={Merchant} exact path='/merchants/:id' />
+          <Route component={Merchants} exact path='/merchants' />
           <Route component={() => (<div>Content for /another route</div>)} exact path='/another' />
         </div>
       </div>
