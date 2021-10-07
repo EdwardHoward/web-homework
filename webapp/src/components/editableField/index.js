@@ -1,22 +1,35 @@
-import React from 'react';
-import { Checkbox, TextField } from '@mui/material';
+import React from 'react'
+import { bool, string, func } from 'prop-types'
+import { Checkbox, TextField } from '@mui/material'
 
-export function EditableField({ value, editing, onChange }) {
+export function EditableField ({ value, editing, onChange }) {
   if (editing) {
     return (
-      <TextField onChange={onChange} value={value} variant="standard" />
+      <TextField onChange={onChange} value={value} variant='standard' />
     )
   }
 
-  return <TextField onChange={onChange} value={value} variant="standard" InputProps={{ disableUnderline: true, readOnly: true }} />;
+  return <TextField InputProps={{ disableUnderline: true, readOnly: true }} onChange={onChange} value={value} variant='standard' />
 }
 
-export function EditableCheckboxField({ value, editing, onChange }) {
+EditableField.propTypes = {
+  value: string,
+  editing: bool,
+  onChange: func
+}
+
+export function EditableCheckboxField ({ value, editing, onChange }) {
   if (editing) {
     return (
-      <Checkbox onChange={onChange} checked={value} variant="standard" />
+      <Checkbox checked={value} onChange={onChange} variant='standard' />
     )
   }
 
-  return <Checkbox onChange={onChange} checked={value} variant="standard" inputProps={{ readOnly: true }} />;
+  return <Checkbox checked={value} inputProps={{ readOnly: true }} onChange={onChange} variant='standard' />
+}
+
+EditableCheckboxField.propTypes = {
+  value: string,
+  editing: bool,
+  onChange: func
 }

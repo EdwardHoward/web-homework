@@ -1,7 +1,8 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom';
+import '@testing-library/jest-dom'
 
-import { Query } from '.';
+import { Query } from '.'
 
 describe('Transactions Table', () => {
   it('renders children', () => {
@@ -13,13 +14,13 @@ describe('Transactions Table', () => {
   })
 
   it('displays loading message', () => {
-    render(<Query loading={true} />)
+    render(<Query loading />)
 
     expect(screen.findByText('Loading...')).toBeInTheDocument()
   })
 
   it('displays error message', () => {
-    render(<Query error={true} />)
+    render(<Query error />)
 
     expect(screen.findByText('¯\_(ツ)_/¯')).toBeInTheDocument()
   })

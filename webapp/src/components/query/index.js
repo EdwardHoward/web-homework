@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import { bool, node } from 'prop-types'
+import React, { Fragment } from 'react'
 
-export function Query({ loading, error, children }) {
+export function Query ({ loading, error, children }) {
   if (loading) {
     return (
       <Fragment>
@@ -22,4 +23,10 @@ export function Query({ loading, error, children }) {
       {children}
     </Fragment>
   )
+}
+
+Query.propTypes = {
+  loading: bool,
+  error: bool,
+  children: node
 }

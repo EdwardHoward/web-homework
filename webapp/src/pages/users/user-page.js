@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetUser from '../../gql/getUser.gql'
 import { UserTable } from '../../components/users/UserTable'
 import { useParams } from 'react-router-dom'
+import { Query } from '../../components/query'
 
 export function User () {
   const { id } = useParams()
@@ -12,25 +13,9 @@ export function User () {
     }
   })
 
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
-
   return (
-    <Fragment>
+    <Query error={error} loading={loading}>
       <UserTable data={[data.user]} />
-    </Fragment>
+    </Query>
   )
 }
