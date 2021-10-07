@@ -1,31 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetMerchants from '../../gql/merchants.gql'
 import { MerchantTable } from '../../components/merchants/MerchantTable'
+import { Query } from '../../components/query'
 
 export function Merchants () {
   const { loading, error, data = {} } = useQuery(GetMerchants)
 
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
-
   return (
-    <Fragment>
-        <h1>Merchants</h1>
+    <Query error={error} loading={loading}>
       <MerchantTable data={data.merchants} />
-    </Fragment>
+    </Query>
   )
 }

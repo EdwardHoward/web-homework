@@ -28,7 +28,7 @@ const styles = css`
   }
 `
 
-export function TxTable({ data }) {
+export function TxTable ({ data }) {
   return (
     <TableContainer component={Paper} css={styles} data-testid='transaction-table'>
       <Table aria-label='transaction table'>
@@ -41,7 +41,7 @@ export function TxTable({ data }) {
             <TableCell align='left'>Debit</TableCell>
             <TableCell align='left'>Credit</TableCell>
             <TableCell align='right'>Amount</TableCell>
-            <TableCell></TableCell>
+            <TableCell />
           </TableRow>
         </TableHead>
         <TableBody>

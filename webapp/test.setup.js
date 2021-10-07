@@ -1,10 +1,15 @@
-require('jest-expect-message');
-require('babel-polyfill');
-const jsdom = require('jsdom');
+require('jest-expect-message')
+require('babel-polyfill')
+const { TextEncoder, TextDecoder } = require('util')
 
-const documentHTML = '<!doctype html><html><body><div id="root"></div></body></html>';
-const dom = new jsdom.JSDOM(documentHTML, { pretendToBeVisual: true });
+global.TextEncoder = TextEncoder
+global.TextDecoder = TextDecoder
 
-global.document = dom.window.document;
-global.window = dom.window;
-global.window.scroll = jest.fn();
+const jsdom = require('jsdom')
+
+const documentHTML = '<!doctype html><html><body><div id="root"></div></body></html>'
+const dom = new jsdom.JSDOM(documentHTML, { pretendToBeVisual: true })
+
+global.document = dom.window.document
+global.window = dom.window
+global.window.scroll = jest.fn()

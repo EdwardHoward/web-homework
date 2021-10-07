@@ -1,31 +1,15 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { useQuery } from '@apollo/client'
 import GetUsers from '../../gql/users.gql'
 import { UserTable } from '../../components/users/UserTable'
+import { Query } from '../../components/query'
 
 export function Users () {
   const { loading, error, data = {} } = useQuery(GetUsers)
 
-  if (loading) {
-    return (
-      <Fragment>
-        Loading...
-      </Fragment>
-    )
-  }
-
-  if (error) {
-    return (
-      <Fragment>
-        ¯\_(ツ)_/¯
-      </Fragment>
-    )
-  }
-
   return (
-    <Fragment>
-        <h1>Users</h1>
+    <Query error={error} loading={loading}>
       <UserTable data={data.users} />
-    </Fragment>
+    </Query>
   )
 }

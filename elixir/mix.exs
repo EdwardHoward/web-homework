@@ -41,6 +41,7 @@ defmodule Homework.MixProject do
       {:jason, "~> 1.0"},
       {:phoenix, "~> 1.5.4"},
       {:phoenix_ecto, "~> 4.1"},
+      {:phoenix_live_reload, "~> 1.3", only: :dev},
       {:phoenix_live_dashboard, "~> 0.2"},
       {:plug_cowboy, "~> 2.0"},
       {:poison, "~> 2.1.0"},

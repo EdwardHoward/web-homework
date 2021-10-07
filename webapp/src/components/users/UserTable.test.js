@@ -1,18 +1,19 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { transactions } from '../../../mocks/transactions-data';
-import { UserTable } from './UserTable';
-import '@testing-library/jest-dom';
+import { users } from '../../../mocks/users-data'
+import { UserTable } from './UserTable'
+import '@testing-library/jest-dom'
 
-describe('Transactions Table', () => {
+describe('User Table', () => {
   it('renders table', () => {
-    render(<UserTable data={transactions} />);
+    render(<UserTable data={users} />)
 
-    expect(screen.findByTestId('transaction-table')).toBeInTheDocument();
-  });
+    expect(screen.findByTestId('user-table')).toBeInTheDocument()
+  })
 
-  it('should show user "employee 4" with amount "150"', () => {
-    render(<UserTable data={transactions} />);
+  it('should show user "employee 4"', () => {
+    render(<UserTable data={users} />)
 
-    expect(screen.findByText('employee 4')).toBeInTheDocument();
+    expect(screen.findByText('employee 4')).toBeInTheDocument()
   })
 })

@@ -1,11 +1,12 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
-import { transactions } from '../../../mocks/transactions-data';
-import { TxTableRow } from './TxTableRow';
+import { merchants } from '../../../mocks/merchants-data'
+import { MerchantTableRow } from './MerchantTableRow'
 
-describe('TxTableRow', () => {
-    it('should render', () => {
-        render(<TxTableRow data={transactions[0]} />)
+describe('MerchantTableRow', () => {
+  it('should render', () => {
+    render(<MerchantTableRow data={merchants[0]} />)
 
-        expect(screen.getByTestId('tx-table-row')).toBeInTheDocument()
-    })
+    expect(screen.getByTestId('merchant-table-row')).toBeInTheDocument()
+  })
 })
