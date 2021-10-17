@@ -17,8 +17,8 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(_args) do
-    Repo.all(Transaction)
+  def list_transactions(args) do
+    Repo.all(Transaction, args)
   end
 
   @doc """
