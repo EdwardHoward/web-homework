@@ -14,7 +14,7 @@ export function UserTableRow ({ data }) {
       data-testid='user-table-row'
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
-      <TableCell align='left' data-testid={makeDataTestId(id, 'id')}><Link to={`/transactions/${id}`}>{id}</Link></TableCell>
+      <TableCell align='left' data-testid={makeDataTestId(id, 'id')}><Link to={`/users/${id}`}>{id}</Link></TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'firstName')}>{firstName}</TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'lastName')}>{lastName}</TableCell>
     </TableRow>
