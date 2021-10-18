@@ -17,7 +17,20 @@ defmodule Homework.Transactions do
       [%Transaction{}, ...]
 
   """
-  def list_transactions(args) do
+  def list_transactions(_args) do
+    Repo.all(Transaction)
+  end
+
+  @doc """
+  Returns the list of transactions by some field.
+
+  ## Examples
+
+      iex> list_transactions(user_id: 123)
+      [%Transaction{ user_id: 123 }, ...]
+
+  """
+  def list_transactions_by(args) do
     Repo.all(Transaction, args)
   end
 
