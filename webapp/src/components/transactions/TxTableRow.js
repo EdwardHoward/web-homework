@@ -9,6 +9,7 @@ import { EditableField, EditableCheckboxField } from '../editableField'
 import { formReducer } from '../../reducers/formReducer'
 import UpdateTransaction from '../../gql/mutations/updateTransaction.gql'
 import css from '@emotion/css'
+import { toRomanNumeral } from '../../utils/roman-numerals'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
@@ -20,6 +21,7 @@ const styles = css`
 export function TxTableRow ({ data }) {
   const { id, user, userId, merchantId, description, merchant, debit, credit, amount } = data
   const [isEditing, setIsEditing] = useState(false)
+  const [format, setFormat] = useState('normal')
 
   const [fields, dispatch] = useReducer(formReducer, {
     'description': { name: 'description', value: description, error: false },
@@ -53,6 +55,38 @@ export function TxTableRow ({ data }) {
 
   function setValue (field, value) {
     dispatch({ type: 'set_field_value', field, value })
+  }
+
+  function formatCurrency (num) {
+    if (isEditing) {
+      return num
+    } else {
+      if (format === 'roman') {
+        return toRomanNumeral(num)
+      } else {
+        return num.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+      }
+    }
+  }
+
+  function handleAmountDoubleClick () {
+    if (format === 'roman') {
+      setFormat('number')
+    } else {
+      setFormat('roman')
+    }
+  }
+
+  function getAmountTitle () {
+    if (isEditing) {
+      return ''
+    } else {
+      if (format === 'roman') {
+        return 'Double click to see numbers'
+      } else {
+        return 'Double click to see roman numerals'
+      }
+    }
   }
 
   return (
@@ -105,10 +139,15 @@ export function TxTableRow ({ data }) {
         <EditableField
           editing={isEditing}
           error={fields.amount.error}
+          inputProps={{
+            sx: { textAlign: 'right' },
+            onDoubleClick: handleAmountDoubleClick,
+            title: getAmountTitle()
+          }}
           onChange={({ target: { value } }) =>
             setValue('amount', value)
           }
-          value={fields.amount.value}
+          value={formatCurrency(fields.amount.value)}
         />
       </TableCell>
 

@@ -1,4 +1,4 @@
-mutation createTransaction($id: ID!, $userId: ID!, $merchantId: ID!, $description: String, $debit: Boolean, $credit: Boolean, $amount: Int) {
+mutation createTransaction($userId: ID!, $merchantId: ID!, $description: String, $debit: Boolean, $credit: Boolean, $amount: Int) {
     createTransaction(userId: $userId, merchantId: $merchantId, description: $description, debit: $debit, credit: $credit, amount: $amount) {
         userId
         merchantId

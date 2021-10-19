@@ -1,5 +1,6 @@
 defmodule HomeworkWeb.Resolvers.UsersResolver do
   alias Homework.Users
+  alias Homework.Transactions
 
   @doc """
   Get a list of users
@@ -8,6 +9,16 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
     {:ok, Users.list_users(args)}
   end
 
+  @doc """
+  Get a list of user's transactions
+  """
+  def transactions(_root, _args, %{source: %{id: id}}) do
+    {:ok, Transactions.list_transactions_by(user_id: id)}
+  end
+
+  @doc """
+  Get a user by id
+  """
   def get_user(_root, %{id: id}, _info) do
     {:ok, Users.get_user!(id)}
   end

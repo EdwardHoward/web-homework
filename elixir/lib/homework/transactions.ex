@@ -22,6 +22,19 @@ defmodule Homework.Transactions do
   end
 
   @doc """
+  Returns the list of transactions by some field.
+
+  ## Examples
+
+      iex> list_transactions(user_id: 123)
+      [%Transaction{ user_id: 123 }, ...]
+
+  """
+  def list_transactions_by(args) do
+    Repo.all(Transaction, args)
+  end
+
+  @doc """
   Gets a single transaction.
 
   Raises `Ecto.NoResultsError` if the Transaction does not exist.

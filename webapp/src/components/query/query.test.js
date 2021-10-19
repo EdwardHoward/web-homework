@@ -22,6 +22,6 @@ describe('Transactions Table', () => {
   it('displays error message', () => {
     render(<Query error />)
 
-    expect(screen.findByText('¯\_(ツ)_/¯')).toBeInTheDocument()
+    expect(screen.findByText('Error loading data')).toBeInTheDocument()
   })
 })

@@ -22,7 +22,6 @@ export function MerchantTable ({ data }) {
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
-            <TableCell align='left'>User</TableCell>
             <TableCell align='left'>Name</TableCell>
           </TableRow>
         </TableHead>
