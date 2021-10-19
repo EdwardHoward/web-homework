@@ -22,11 +22,7 @@ function AppRouter () {
               justifyContent: 'flex-end',
               px: [1]
             }}
-          >
-            {/* <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton> */}
-          </Toolbar>
+          />
           <Divider />
           <List>
             <ListItemLink primary='Transactions' to='/transactions' />
