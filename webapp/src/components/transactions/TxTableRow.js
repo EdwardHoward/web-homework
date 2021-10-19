@@ -195,10 +195,10 @@ function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onS
   if (!isEditing) {
     return (
       <div css={rowActionStyle}>
-        <IconButton onClick={onEditClick}>
+        <IconButton aria-label='Edit' onClick={onEditClick}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={onDeleteClick}>
+        <IconButton aria-label='Delete' onClick={onDeleteClick}>
           <DeleteIcon />
         </IconButton>
       </div>
@@ -206,10 +206,10 @@ function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onS
   } else {
     return (
       <div css={rowActionStyle}>
-        <IconButton onClick={onCancelClick}>
+        <IconButton aria-label='Cancel' onClick={onCancelClick}>
           <CloseIcon />
         </IconButton>
-        <IconButton onClick={onSaveClick}>
+        <IconButton aria-label='Save' onClick={onSaveClick}>
           <SaveIcon />
         </IconButton>
       </div>
