@@ -1,5 +1,5 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from 'react'
+import { Bar } from 'react-chartjs-2'
 
 const options = {
   indexAxis: 'x',
@@ -7,17 +7,17 @@ const options = {
   // In this case, we are setting the border of each horizontal bar to be 2px wide
   elements: {
     bar: {
-      borderWidth: 2,
-    },
+      borderWidth: 2
+    }
   },
   responsive: true,
   plugins: {
     legend: {
-      position: 'right',
-    },
-  },
-};
+      position: 'right'
+    }
+  }
+}
 
-export function Chart({ data }) {
+export function Chart ({ data }) {
   return <Bar data={data} options={options} />
 }

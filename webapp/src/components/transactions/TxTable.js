@@ -11,11 +11,9 @@ import Paper from '@mui/material/Paper'
 import { TxTableRow } from './TxTableRow'
 
 const styles = css`
-  min-width: 650px;
-  max-width: 75%;
-
   .MuiTableCell-head {
-    background: #e0e0e0;
+    background: black;
+    color: white;
     border-right: 1px solid #c9c9c9;
   }
 

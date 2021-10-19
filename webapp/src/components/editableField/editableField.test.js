@@ -17,7 +17,7 @@ describe('Editable Field', () => {
   })
 
   it('should render value', () => {
-    render(<EditableField value="test" />)
+    render(<EditableField value='test' />)
 
     expect(screen.findByText('test')).toBeInTheDocument()
   })

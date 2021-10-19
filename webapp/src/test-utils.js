@@ -8,39 +8,39 @@ import GetTransactions from './gql/transactions.gql'
 import 'regenerator-runtime/runtime'
 
 const mocks = [
-    {
-        request: {
-            query: GetTransaction,
-        },
-        result: {
-            data: {
-                transaction: transactions[0],
-            },
-        },
+  {
+    request: {
+      query: GetTransaction
     },
-    {
-        request: {
-            query: GetTransactions,
-        },
-        result: {
-            data: {
-                transactions: transactions,
-            },
-        },
+    result: {
+      data: {
+        transaction: transactions[0]
+      }
+    }
+  },
+  {
+    request: {
+      query: GetTransactions
     },
-];
+    result: {
+      data: {
+        transactions: transactions
+      }
+    }
+  }
+]
 
 const Providers = ({ children }) => (
-    <MemoryRouter>
-        <MockedProvider mocks={mocks} addTypename={false}>
-            {children}
-        </MockedProvider>
-    </MemoryRouter>
-);
+  <MemoryRouter>
+    <MockedProvider addTypename={false} mocks={mocks}>
+      {children}
+    </MockedProvider>
+  </MemoryRouter>
+)
 
 const customRender = (
-    ui,
-    options,
+  ui,
+  options
 ) => render(ui, { wrapper: Providers, ...options })
 
 export * from '@testing-library/react'

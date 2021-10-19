@@ -3,24 +3,24 @@ import { useQuery } from '@apollo/client'
 import GetUser from '../../gql/getUser.gql'
 import { UserTable } from '../../components/users/UserTable'
 import { useParams } from 'react-router-dom'
-import { Query } from '../../components/query'
+import { Query } from '../../components/query/Query'
 import { Chart } from '../../components/chart'
 
-function getTransactionsByMonth(data) {
-  const months = new Array(12).fill(0);
+function getTransactionsByMonth (data) {
+  const months = new Array(12).fill(0)
 
   data.forEach(trx => {
-    const month = new Date(trx.insertedAt).getMonth();
+    const month = new Date(trx.insertedAt).getMonth()
 
-    months[month]++;
+    months[month]++
   })
 
-  return months;
+  return months
 }
 
-export function User() {
+export function User () {
   const { id } = useParams()
-  const [transactionsByMonth, setTransactionsByMonth] = useState([]);
+  const [transactionsByMonth, setTransactionsByMonth] = useState([])
   const { loading, error, data = {} } = useQuery(GetUser, {
     variables: {
       id
@@ -29,9 +29,9 @@ export function User() {
 
   useEffect(() => {
     if (data.user) {
-      setTransactionsByMonth(getTransactionsByMonth(data.user.transactions));
+      setTransactionsByMonth(getTransactionsByMonth(data.user.transactions))
     }
-  }, [data]);
+  }, [data])
 
   return (
     <Query error={error} loading={loading}>
@@ -49,7 +49,7 @@ export function User() {
               'rgba(255, 206, 86, 0.2)',
               'rgba(75, 192, 192, 0.2)',
               'rgba(153, 102, 255, 0.2)',
-              'rgba(255, 159, 64, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
               'rgba(255, 99, 132, 1)',
@@ -57,11 +57,11 @@ export function User() {
               'rgba(255, 206, 86, 1)',
               'rgba(75, 192, 192, 1)',
               'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)',
+              'rgba(255, 159, 64, 1)'
             ],
-            borderWidth: 1,
-          },
-        ],
+            borderWidth: 1
+          }
+        ]
       }} />
     </Query>
   )

@@ -1,35 +1,26 @@
-import React, { forwardRef, useMemo } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './pages/home'
 import { Transactions, Transaction } from './pages/transactions'
 import { Users, User } from './pages/users'
 import { Merchants, Merchant } from './pages/merchants'
-import { CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
+import { CssBaseline, Divider, Drawer, List, Toolbar } from '@mui/material'
 import { Box } from '@mui/system'
+import { ListItemLink } from './components/linkListItem/LinkListItem'
 
-function ListItemLink({ icon, primary, to }) {
-  const renderLink = useMemo(() => forwardRef((props, ref) => <Link to={to} ref={ref} {...props} />, [to]));
-
-  return (
-    <ListItem button component={renderLink}>
-      <ListItemText primary={primary} />
-    </ListItem>
-  );
-}
-
-function AppRouter() {
+function AppRouter () {
   return (
     <Router>
       <CssBaseline />
       <Box css={layoutStyle}>
-        <Drawer css={navStyle} variant="permanent" open={true}>
+        <Drawer css={navStyle} open variant='permanent'>
           <Toolbar
             sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'flex-end',
-              px: [1],
+              px: [1]
             }}
           >
             {/* <IconButton onClick={toggleDrawer}>
@@ -38,9 +29,9 @@ function AppRouter() {
           </Toolbar>
           <Divider />
           <List>
-            <ListItemLink primary="Transactions" to="/transactions" />
-            <ListItemLink primary="Users" to="/users" />
-            <ListItemLink primary="Merchants" to="/merchants" />
+            <ListItemLink primary='Transactions' to='/transactions' />
+            <ListItemLink primary='Users' to='/users' />
+            <ListItemLink primary='Merchants' to='/merchants' />
           </List>
         </Drawer>
         <div className='main-content' css={contentStyle}>

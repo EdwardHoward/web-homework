@@ -3,7 +3,7 @@ import { useQuery } from '@apollo/client'
 import GetTransaction from '../../gql/getTransaction.gql'
 import { TxTable } from '../../components/transactions/TxTable'
 import { useParams } from 'react-router-dom'
-import { Query } from '../../components/query'
+import { Query } from '../../components/query/Query'
 
 export function Transaction () {
   const { id } = useParams()
