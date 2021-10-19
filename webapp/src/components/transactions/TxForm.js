@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import { Button, Checkbox, Divider, FormControl, FormControlLabel, Grid, Input, InputLabel, TextField } from '@mui/material'
+import { Button, Checkbox, Divider, FormControlLabel, Grid, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import { useMutation } from '@apollo/client'
 import { formReducer } from '../../reducers/formReducer'
@@ -25,6 +25,20 @@ export function TxForm ({ onSave }) {
     'merchantId': { name: 'merchantId', value: '', error: false }
   })
 
+  function resetFields () {
+    dispatch({
+      type: 'set',
+      fields: {
+        'userId': { name: 'userId', value: '', error: false },
+        'description': { name: 'description', value: '', error: false },
+        'debit': { name: 'debit', value: false, error: false },
+        'credit': { name: 'credit', value: false, error: false },
+        'amount': { name: 'amount', value: '', error: false },
+        'merchantId': { name: 'merchantId', value: '', error: false }
+      }
+    })
+  }
+
   function setValue (field, value) {
     dispatch({ type: 'set_field_value', field, value })
   }
@@ -44,10 +58,13 @@ export function TxForm ({ onSave }) {
         amount: Number(fields.amount.value)
       }
     })
+
+    resetFields()
   }
 
   return (
     <>
+      <h2>Create Transaction</h2>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
@@ -87,13 +104,18 @@ export function TxForm ({ onSave }) {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControl>
-            <InputLabel htmlFor='amount'>amount</InputLabel>
-            <Input checked={fields['amount'].value} id='amount'
-              onChange={({ target: { value } }) =>
-                setValue('amount', value)
-              } />
-          </FormControl>
+          <TextField
+            fullWidth
+            id='amount'
+            label='Amount'
+            onChange={({ target: { value } }) =>
+              setValue('amount', value)
+            }
+            required
+            type='number'
+            value={fields['amount'].value}
+            variant='standard'
+          />
         </Grid>
         <Grid item xs={12}>
           <UserDropdown onChange={
