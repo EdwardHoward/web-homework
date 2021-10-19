@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SaveIcon from '@mui/icons-material/Save'
 import LinkIcon from '@mui/icons-material/Link'
+import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { EditableField, EditableCheckboxField } from '../editableField'
@@ -69,6 +70,10 @@ export function TxTableRow ({ data }) {
         amount: Number(fields.amount.value)
       }
     })
+  }
+
+  function handleCancelClick () {
+    setIsEditing(false)
   }
 
   function setValue (field, value) {
@@ -170,7 +175,13 @@ export function TxTableRow ({ data }) {
       </TableCell>
 
       <TableCell align='right' data-testid={makeDataTestId(id, 'actions')}>
-        <RowActions isEditing={isEditing} onDeleteClick={handleDeleteClick} onEditClick={handleEditClick} onSaveClick={handleSaveClick} />
+        <RowActions
+          isEditing={isEditing}
+          onCancelClick={handleCancelClick}
+          onDeleteClick={handleDeleteClick}
+          onEditClick={handleEditClick}
+          onSaveClick={handleSaveClick}
+        />
       </TableCell>
     </TableRow >
   )
@@ -180,7 +191,7 @@ const rowActionStyle = css`
   display: flex;
 `
 
-function RowActions ({ isEditing, onEditClick, onDeleteClick, onSaveClick }) {
+function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onSaveClick }) {
   if (!isEditing) {
     return (
       <div css={rowActionStyle}>
@@ -194,9 +205,14 @@ function RowActions ({ isEditing, onEditClick, onDeleteClick, onSaveClick }) {
     )
   } else {
     return (
-      <IconButton onClick={onSaveClick}>
-        <SaveIcon />
-      </IconButton>
+      <div css={rowActionStyle}>
+        <IconButton onClick={onCancelClick}>
+          <CloseIcon />
+        </IconButton>
+        <IconButton onClick={onSaveClick}>
+          <SaveIcon />
+        </IconButton>
+      </div>
     )
   }
 }
