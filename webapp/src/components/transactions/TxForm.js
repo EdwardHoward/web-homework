@@ -9,6 +9,17 @@ import createTransactionMutation from '../../gql/mutations/createTransaction.gql
 import GetTransaction from '../../gql/transactions.gql'
 import { func } from 'prop-types'
 
+function defaultFields () {
+  return {
+    'userId': { name: 'userId', value: '', error: false },
+    'description': { name: 'description', value: '', error: false },
+    'debit': { name: 'debit', value: false, error: false },
+    'credit': { name: 'credit', value: false, error: false },
+    'amount': { name: 'amount', value: '', error: false },
+    'merchantId': { name: 'merchantId', value: '', error: false }
+  }
+}
+
 export function TxForm ({ onSave }) {
   const [createTransaction] = useMutation(createTransactionMutation, {
     refetchQueries: [{
@@ -16,26 +27,12 @@ export function TxForm ({ onSave }) {
     }]
   })
 
-  const [fields, dispatch] = useReducer(formReducer, {
-    'userId': { name: 'userId', value: '', error: false },
-    'description': { name: 'description', value: '', error: false },
-    'debit': { name: 'debit', value: false, error: false },
-    'credit': { name: 'credit', value: false, error: false },
-    'amount': { name: 'amount', value: '', error: false },
-    'merchantId': { name: 'merchantId', value: '', error: false }
-  })
+  const [fields, dispatch] = useReducer(formReducer, defaultFields())
 
   function resetFields () {
     dispatch({
       type: 'set',
-      fields: {
-        'userId': { name: 'userId', value: '', error: false },
-        'description': { name: 'description', value: '', error: false },
-        'debit': { name: 'debit', value: false, error: false },
-        'credit': { name: 'credit', value: false, error: false },
-        'amount': { name: 'amount', value: '', error: false },
-        'merchantId': { name: 'merchantId', value: '', error: false }
-      }
+      fields: defaultFields()
     })
   }
 
@@ -64,7 +61,7 @@ export function TxForm ({ onSave }) {
 
   return (
     <>
-      <h2>Create Transaction</h2>
+      <h2 style={{ marginTop: 0 }}>Create Transaction</h2>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
