@@ -13,7 +13,7 @@ export function Query ({ loading, error, children }) {
   if (error) {
     return (
       <Fragment>
-        ¯\_(ツ)_/¯
+        Error loading data
       </Fragment>
     )
   }

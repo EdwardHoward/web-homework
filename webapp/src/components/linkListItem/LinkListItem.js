@@ -2,6 +2,7 @@ import React, { forwardRef, useMemo } from 'react'
 import { ListItem, ListItemText } from '@mui/material'
 import { NavLink } from 'react-router-dom'
 import { css } from '@emotion/core'
+import { string } from 'prop-types'
 
 const linkStyle = css`
     &.is-active {
@@ -11,6 +12,7 @@ const linkStyle = css`
 `
 
 export function ListItemLink ({ primary, to }) {
+  // eslint-disable-next-line react/display-name
   const renderLink = useMemo(() => forwardRef((props, ref) =>
     <NavLink activeClassName='is-active' ref={ref} to={to} {...props} />, [to]))
 
@@ -19,4 +21,9 @@ export function ListItemLink ({ primary, to }) {
       <ListItemText primary={primary} />
     </ListItem>
   )
+}
+
+ListItemLink.propTypes = {
+  primary: string,
+  to: string
 }

@@ -1,3 +1,4 @@
+/* eslint-disable import/export */
 import React from 'react'
 import { MockedProvider } from '@apollo/client/testing'
 import { transactions } from '../mocks/transactions-data'
@@ -6,6 +7,7 @@ import { render } from '@testing-library/react'
 import GetTransaction from './gql/GetTransaction.gql'
 import GetTransactions from './gql/transactions.gql'
 import 'regenerator-runtime/runtime'
+import { node } from 'prop-types'
 
 const mocks = [
   {
@@ -37,6 +39,10 @@ const Providers = ({ children }) => (
     </MockedProvider>
   </MemoryRouter>
 )
+
+Providers.propTypes = {
+  children: node
+}
 
 const customRender = (
   ui,

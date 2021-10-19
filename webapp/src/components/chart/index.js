@@ -1,3 +1,4 @@
+import { object } from 'prop-types'
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
 
@@ -20,4 +21,8 @@ const options = {
 
 export function Chart ({ data }) {
   return <Bar data={data} options={options} />
+}
+
+Chart.propTypes = {
+  data: object
 }

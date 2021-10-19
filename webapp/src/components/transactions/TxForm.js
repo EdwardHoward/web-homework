@@ -7,6 +7,7 @@ import { MerchantDropdown } from '../merchants/MerchantDropdown'
 import { UserDropdown } from '../users/UserDropdown'
 import createTransactionMutation from '../../gql/mutations/createTransaction.gql'
 import GetTransaction from '../../gql/transactions.gql'
+import { func } from 'prop-types'
 
 export function TxForm ({ onSave }) {
   const [createTransaction] = useMutation(createTransactionMutation, {
@@ -109,9 +110,6 @@ export function TxForm ({ onSave }) {
       </Grid>
       <Divider />
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {/* <Button onClick={() => { }} sx={{ mt: 3, ml: 1 }}>
-          Cancel
-        </Button> */}
         <Button
           onClick={handleSave}
           sx={{ mt: 3, ml: 1 }}
@@ -122,4 +120,8 @@ export function TxForm ({ onSave }) {
       </Box>
     </>
   )
+}
+
+TxForm.propTypes = {
+  onSave: func
 }

@@ -1,5 +1,6 @@
 import { css } from '@emotion/core'
 import { Button, Modal, Paper } from '@mui/material'
+import { node, string } from 'prop-types'
 import React, { useState } from 'react'
 
 const modalStyle = css`
@@ -30,4 +31,9 @@ export function ModalButton ({ label, children }) {
       </Modal>
     </>
   )
+}
+
+ModalButton.propTypes = {
+  label: string,
+  children: node
 }

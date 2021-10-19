@@ -17,7 +17,7 @@ export function Home () {
   if (error) {
     return (
       <Fragment>
-        ¯\_(ツ)_/¯
+        Error loading data
       </Fragment>
     )
   }
