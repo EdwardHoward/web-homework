@@ -2,12 +2,19 @@ import React, { useReducer, useState } from 'react'
 import { string, bool, number, shape } from 'prop-types'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
+import IconButton from '@mui/material/IconButton'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import SaveIcon from '@mui/icons-material/Save'
+import LinkIcon from '@mui/icons-material/Link'
+import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
 import { useMutation } from '@apollo/client'
 import { EditableField, EditableCheckboxField } from '../editableField'
 import { formReducer } from '../../reducers/formReducer'
 import UpdateTransaction from '../../gql/mutations/updateTransaction.gql'
+import DeleteTransaction from '../../gql/mutations/deleteTransaction.gql'
+import GetTransaction from '../../gql/transactions.gql'
 import css from '@emotion/css'
 import { toRomanNumeral } from '../../utils/roman-numerals'
 
@@ -32,9 +39,21 @@ export function TxTableRow ({ data }) {
   })
 
   const [updateTransaction] = useMutation(UpdateTransaction)
+  const [deleteTransaction] = useMutation(DeleteTransaction, {
+    variables: {
+      id
+    },
+    refetchQueries: [{
+      query: GetTransaction
+    }]
+  })
 
   function handleEditClick () {
     setIsEditing(true)
+  }
+
+  function handleDeleteClick () {
+    deleteTransaction()
   }
 
   function handleSaveClick () {
@@ -51,6 +70,10 @@ export function TxTableRow ({ data }) {
         amount: Number(fields.amount.value)
       }
     })
+  }
+
+  function handleCancelClick () {
+    setIsEditing(false)
   }
 
   function setValue (field, value) {
@@ -96,7 +119,7 @@ export function TxTableRow ({ data }) {
     >
       <TableCell align='left' data-testid={makeDataTestId(id, 'id')}>
         <div>
-          <Link to={`/transactions/${id}`}>{id}</Link>
+          <Link to={`/transactions/${id}`}><LinkIcon /></Link>
         </div>
       </TableCell>
       <TableCell align='left' data-testid={makeDataTestId(id, 'userId')}>
@@ -152,17 +175,45 @@ export function TxTableRow ({ data }) {
       </TableCell>
 
       <TableCell align='right' data-testid={makeDataTestId(id, 'actions')}>
-        <RowActions handleEditClick={handleEditClick} handleSaveClick={handleSaveClick} isEditing={isEditing} />
+        <RowActions
+          isEditing={isEditing}
+          onCancelClick={handleCancelClick}
+          onDeleteClick={handleDeleteClick}
+          onEditClick={handleEditClick}
+          onSaveClick={handleSaveClick}
+        />
       </TableCell>
     </TableRow >
   )
 }
 
-function RowActions ({ isEditing, handleEditClick, handleSaveClick }) {
+const rowActionStyle = css`
+  display: flex;
+`
+
+function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onSaveClick }) {
   if (!isEditing) {
-    return <Button onClick={handleEditClick}>Edit</Button>
+    return (
+      <div css={rowActionStyle}>
+        <IconButton onClick={onEditClick}>
+          <EditIcon />
+        </IconButton>
+        <IconButton onClick={onDeleteClick}>
+          <DeleteIcon />
+        </IconButton>
+      </div>
+    )
   } else {
-    return <Button onClick={handleSaveClick}>Save</Button>
+    return (
+      <div css={rowActionStyle}>
+        <IconButton onClick={onCancelClick}>
+          <CloseIcon />
+        </IconButton>
+        <IconButton onClick={onSaveClick}>
+          <SaveIcon />
+        </IconButton>
+      </div>
+    )
   }
 }
 

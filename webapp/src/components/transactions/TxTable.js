@@ -32,7 +32,7 @@ export function TxTable ({ data }) {
       <Table aria-label='transaction table'>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
+            <TableCell />
             <TableCell align='left'>User</TableCell>
             <TableCell align='left'>Description</TableCell>
             <TableCell align='left'>Merchant</TableCell>

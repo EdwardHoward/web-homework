@@ -1,13 +1,29 @@
 import React, { useReducer } from 'react'
+import { useMutation } from '@apollo/client'
 import { Button, Checkbox, Divider, FormControlLabel, Grid, TextField } from '@mui/material'
 import { Box } from '@mui/system'
-import { useMutation } from '@apollo/client'
+import { func } from 'prop-types'
 import { formReducer } from '../../reducers/formReducer'
 import { MerchantDropdown } from '../merchants/MerchantDropdown'
 import { UserDropdown } from '../users/UserDropdown'
 import createTransactionMutation from '../../gql/mutations/createTransaction.gql'
 import GetTransaction from '../../gql/transactions.gql'
-import { func } from 'prop-types'
+import { css } from '@emotion/core'
+
+function defaultFields () {
+  return {
+    'userId': { name: 'userId', value: '', error: false },
+    'description': { name: 'description', value: '', error: false },
+    'debit': { name: 'debit', value: false, error: false },
+    'credit': { name: 'credit', value: false, error: false },
+    'amount': { name: 'amount', value: '', error: false },
+    'merchantId': { name: 'merchantId', value: '', error: false }
+  }
+}
+
+const headerStyle = css`
+  margin-top: 0;
+`
 
 export function TxForm ({ onSave }) {
   const [createTransaction] = useMutation(createTransactionMutation, {
@@ -16,26 +32,12 @@ export function TxForm ({ onSave }) {
     }]
   })
 
-  const [fields, dispatch] = useReducer(formReducer, {
-    'userId': { name: 'userId', value: '', error: false },
-    'description': { name: 'description', value: '', error: false },
-    'debit': { name: 'debit', value: false, error: false },
-    'credit': { name: 'credit', value: false, error: false },
-    'amount': { name: 'amount', value: '', error: false },
-    'merchantId': { name: 'merchantId', value: '', error: false }
-  })
+  const [fields, dispatch] = useReducer(formReducer, defaultFields())
 
   function resetFields () {
     dispatch({
       type: 'set',
-      fields: {
-        'userId': { name: 'userId', value: '', error: false },
-        'description': { name: 'description', value: '', error: false },
-        'debit': { name: 'debit', value: false, error: false },
-        'credit': { name: 'credit', value: false, error: false },
-        'amount': { name: 'amount', value: '', error: false },
-        'merchantId': { name: 'merchantId', value: '', error: false }
-      }
+      fields: defaultFields()
     })
   }
 
@@ -64,7 +66,7 @@ export function TxForm ({ onSave }) {
 
   return (
     <>
-      <h2>Create Transaction</h2>
+      <h2 css={headerStyle}>Create Transaction</h2>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
