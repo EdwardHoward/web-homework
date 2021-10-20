@@ -33,18 +33,3 @@ export function toRomanNumeral (num) {
 
   return roman
 }
-
-// using javascript methods
-export function toRomanNumeralSmall (num) {
-  let roman = ''
-
-  for (let { value, letter } of letters) {
-    // How many times value goes into num
-    const count = Math.floor(num / value)
-
-    roman += letter.repeat(count)
-    num -= count * value
-  }
-
-  return roman
-}
