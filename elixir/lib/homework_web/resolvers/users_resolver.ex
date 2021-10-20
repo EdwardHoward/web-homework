@@ -13,7 +13,7 @@ defmodule HomeworkWeb.Resolvers.UsersResolver do
   Get a list of user's transactions
   """
   def transactions(_root, _args, %{source: %{id: id}}) do
-    {:ok, Transactions.list_transactions_by(user_id: id)}
+    {:ok, Transactions.list_transactions_where(user_id: id)}
   end
 
   @doc """

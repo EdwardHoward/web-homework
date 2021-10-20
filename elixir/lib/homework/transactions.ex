@@ -30,8 +30,10 @@ defmodule Homework.Transactions do
       [%Transaction{ user_id: 123 }, ...]
 
   """
-  def list_transactions_by(args) do
-    Repo.all(Transaction, args)
+  def list_transactions_where(args) do
+    Transaction
+    |> where(^args)
+    |> Repo.all()
   end
 
   @doc """
