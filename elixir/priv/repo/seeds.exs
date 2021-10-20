@@ -15,24 +15,35 @@ alias Homework.Transactions.Transaction
 alias Homework.Users.User
 alias Homework.Merchants.Merchant
 
-edward_user_id = Ecto.UUID.generate
+first_user_id = Ecto.UUID.generate
+second_user_id = Ecto.UUID.generate
+
 walmart_merchant_id = Ecto.UUID.generate
 bestbuy_merchant_id = Ecto.UUID.generate
 
 Repo.insert!(%User{
-  id: edward_user_id,
-  dob: "05/27/1993",
-  first_name: "Edward",
-  last_name: "Howard",
+  id: first_user_id,
+  dob: "03/15/1993",
+  first_name: "First",
+  last_name: "User",
   inserted_at: ~N[2021-09-17 14:00:00],
   updated_at: ~N[2021-09-17 14:00:00]
+})
+
+Repo.insert!(%User{
+  id: second_user_id,
+  dob: "01/05/1991",
+  first_name: "Second",
+  last_name: "User",
+  inserted_at: ~N[2021-10-20 14:00:00],
+  updated_at: ~N[2021-10-20 14:00:00]
 })
 
 
 Repo.insert!(%Merchant{
   id: walmart_merchant_id,
-  name: "walmart",
-  description: "walmart",
+  name: "Walmart",
+  description: "Walmart",
   inserted_at: ~N[2021-09-17 14:00:00],
   updated_at: ~N[2021-09-17 14:00:00]
 })
@@ -40,17 +51,17 @@ Repo.insert!(%Merchant{
 
 Repo.insert!(%Merchant{
   id: bestbuy_merchant_id,
-  name: "bestbuy",
-  description: "bestbuy",
+  name: "Best Buy",
+  description: "Best Buy",
   inserted_at: ~N[2021-09-17 14:00:00],
   updated_at: ~N[2021-09-17 14:00:00]
 })
 
 Repo.insert!(%Transaction{
   id: Ecto.UUID.generate,
-  user_id: edward_user_id,
+  user_id: first_user_id,
   merchant_id: walmart_merchant_id,
-  description: "cleaningsupplies",
+  description: "cleaning supplies",
   amount: 150,
   credit: false,
   debit: true,
@@ -60,12 +71,24 @@ Repo.insert!(%Transaction{
 
 Repo.insert!(%Transaction{
   id: Ecto.UUID.generate,
-  user_id: edward_user_id,
+  user_id: first_user_id,
   merchant_id: bestbuy_merchant_id,
   description: "a big tv",
-  amount: 150,
+  amount: 1000,
   credit: false,
   debit: true,
+  inserted_at: ~N[2021-10-02 14:00:00],
+  updated_at: ~N[2021-10-02 14:00:00]
+})
+
+Repo.insert!(%Transaction{
+  id: Ecto.UUID.generate,
+  user_id: second_user_id,
+  merchant_id: walmart_merchant_id,
+  description: "food",
+  amount: 50,
+  credit: true,
+  debit: false,
   inserted_at: ~N[2021-10-02 14:00:00],
   updated_at: ~N[2021-10-02 14:00:00]
 })
