@@ -33,7 +33,7 @@ describe('Roman Numeral Util', () => {
     expect(toRomanNumeral(4)).toBe('IV')
   })
 
-  it('should convert 40 to IV', () => {
+  it('should convert 40 to XL', () => {
     expect(toRomanNumeral(40)).toBe('XL')
   })
 
