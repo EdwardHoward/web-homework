@@ -2,12 +2,15 @@ const letters = [
   { letter: 'M', value: 1000 },
   { letter: 'CM', value: 900 },
   { letter: 'D', value: 500 },
+  { letter: 'CD', value: 400 },
   { letter: 'C', value: 100 },
   { letter: 'XC', value: 90 },
   { letter: 'L', value: 50 },
+  { letter: 'XL', value: 40 },
   { letter: 'X', value: 10 },
   { letter: 'IX', value: 9 },
   { letter: 'V', value: 5 },
+  { letter: 'IV', value: 4 },
   { letter: 'I', value: 1 }
 ]
 
@@ -16,17 +19,31 @@ export function toRomanNumeral (num) {
 
   for (let letterIndex in letters) {
     const letter = letters[letterIndex]
+
+    // How many times value goes into num
     const count = Math.floor(num / letter.value)
 
-    if (count === 4) {
-      roman += letter.letter + letters[letterIndex - 1].letter
-    } else {
-      for (let i = 0; i < count; i++) {
-        roman += letter.letter
-      }
+    // Add letter for each value
+    for (let i = 0; i < count; i++) {
+      roman += letter.letter
     }
 
     num -= count * letter.value
+  }
+
+  return roman
+}
+
+// using javascript methods
+export function toRomanNumeralSmall (num) {
+  let roman = ''
+
+  for (let { value, letter } of letters) {
+    // How many times value goes into num
+    const count = Math.floor(num / value)
+
+    roman += letter.repeat(count)
+    num -= count * value
   }
 
   return roman
