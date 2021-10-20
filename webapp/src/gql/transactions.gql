@@ -4,8 +4,6 @@
 query GetTransactions {
     transactions {
         id
-        userId
-        merchantId
         user {
             ...userData
         }

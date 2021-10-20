@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { TxTableRow } from './TxTableRow'
+import { TxTableRowContainer } from './TxTableRow-container'
 
 const styles = css`
   .MuiTableCell-head {
@@ -43,8 +43,8 @@ export function TxTable ({ data }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((tx) => (
-            <TxTableRow data={tx} key={`transaction-${tx.id}`} />
+          {data && data.map((tx) => (
+            <TxTableRowContainer data={tx} key={`transaction-${tx.id}`} />
           ))}
         </TableBody>
       </Table>
