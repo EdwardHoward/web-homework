@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react'
-import { string, bool, number, shape } from 'prop-types'
+import { string, bool, number, shape, func } from 'prop-types'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import IconButton from '@mui/material/IconButton'
@@ -9,12 +9,8 @@ import SaveIcon from '@mui/icons-material/Save'
 import LinkIcon from '@mui/icons-material/Link'
 import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
-import { useMutation } from '@apollo/client'
 import { EditableField, EditableCheckboxField } from '../editableField'
 import { formReducer } from '../../reducers/formReducer'
-import UpdateTransaction from '../../gql/mutations/updateTransaction.gql'
-import DeleteTransaction from '../../gql/mutations/deleteTransaction.gql'
-import GetTransaction from '../../gql/transactions.gql'
 import css from '@emotion/css'
 import { toRomanNumeral } from '../../utils/roman-numerals'
 
@@ -25,8 +21,8 @@ const styles = css`
     border: none;
   }
 `
-export function TxTableRow ({ data }) {
-  const { id, user, userId, merchantId, description, merchant, debit, credit, amount } = data
+export function TxTableRow ({ data, onUpdate, onDelete }) {
+  const { id, user, description, merchant, debit, credit, amount } = data
   const [isEditing, setIsEditing] = useState(false)
   const [format, setFormat] = useState('normal')
 
@@ -35,17 +31,7 @@ export function TxTableRow ({ data }) {
     'debit': { name: 'debit', value: debit, error: false },
     'credit': { name: 'credit', value: credit, error: false },
     'amount': { name: 'amount', value: amount, error: false },
-    'merchantId': { name: 'merchantId', value: merchantId, error: false }
-  })
-
-  const [updateTransaction] = useMutation(UpdateTransaction)
-  const [deleteTransaction] = useMutation(DeleteTransaction, {
-    variables: {
-      id
-    },
-    refetchQueries: [{
-      query: GetTransaction
-    }]
+    'merchantId': { name: 'merchantId', value: merchant.id, error: false }
   })
 
   function handleEditClick () {
@@ -53,23 +39,25 @@ export function TxTableRow ({ data }) {
   }
 
   function handleDeleteClick () {
-    deleteTransaction()
+    if (typeof onDelete === 'function') {
+      onDelete()
+    }
   }
 
   function handleSaveClick () {
     setIsEditing(false)
 
-    updateTransaction({
-      variables: {
+    if (typeof onUpdate === 'function') {
+      onUpdate({
         id,
-        userId,
-        merchantId,
+        userId: user.id,
+        merchantId: merchant.id,
         description: fields.description.value,
         debit: fields.debit.value,
         credit: fields.credit.value,
         amount: Number(fields.amount.value)
-      }
-    })
+      })
+    }
   }
 
   function handleCancelClick () {
@@ -165,12 +153,13 @@ export function TxTableRow ({ data }) {
           inputProps={{
             sx: { textAlign: 'right' },
             onDoubleClick: handleAmountDoubleClick,
-            title: getAmountTitle()
+            title: getAmountTitle(),
+            type: isEditing ? 'number' : 'text'
           }}
           onChange={({ target: { value } }) =>
             setValue('amount', value)
           }
-          value={formatCurrency(fields.amount.value)}
+          value={formatCurrency(Number(fields.amount.value))}
         />
       </TableCell>
 
@@ -183,7 +172,7 @@ export function TxTableRow ({ data }) {
           onSaveClick={handleSaveClick}
         />
       </TableCell>
-    </TableRow >
+    </TableRow>
   )
 }
 
@@ -231,5 +220,7 @@ TxTableRow.propTypes = {
     debit: bool,
     credit: bool,
     amount: number
-  })
+  }),
+  onUpdate: func,
+  onDelete: func
 }

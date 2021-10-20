@@ -1,20 +1,20 @@
 import React from 'react'
 import { render, screen, act, waitFor } from '../../test-utils'
-import { Transaction } from './transaction-page'
+import { Transactions } from './transactions-page'
 import '@testing-library/jest-dom'
 
-describe('Transaction Page', () => {
+describe('Transactions Page', () => {
   it('renders loading', () => {
-    render(<Transaction id='5d5c1f747e01cd704f18f863' />)
+    render(<Transactions />)
 
     expect(screen.getByText('Loading...')).toBeInTheDocument()
   })
 
   it('renders table', async () => {
     await act(async () => {
-      render(<Transaction id='5d5c1f747e01cd704f18f863' />)
+      render(<Transactions />)
 
-      await waitFor(() => expect(screen.getByTestId('transaction-table')).toBeInTheDocument())
+      await waitFor(() => expect(screen.getByText('employee 4')).toBeInTheDocument())
     })
   })
 })

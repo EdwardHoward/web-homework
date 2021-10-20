@@ -1,28 +1,24 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen } from '../../test-utils'
 import { transactions } from '../../../mocks/transactions-data'
 import { TxTable } from './TxTable'
-import { MemoryRouter } from 'react-router'
 import '@testing-library/jest-dom'
+// import { waitFor } from '@testing-library/dom'
 
 describe('Transactions Table', () => {
-  it('renders table', () => {
+  it('renders table', async () => {
     render(
-      <MemoryRouter>
-        <TxTable data={transactions} />
-      </MemoryRouter>
+      <TxTable data={transactions} />
     )
 
-    expect(screen.findByTestId('transaction-table')).toBeInTheDocument()
+    expect(screen.getByTestId('transaction-table')).toBeInTheDocument()
   })
 
-  it('should show user "employee 4" with amount "150"', () => {
+  it('should show user "employee 4"', () => {
     render(
-      <MemoryRouter>
-        <TxTable data={transactions} />
-      </MemoryRouter>
+      <TxTable data={transactions} />
     )
 
-    expect(screen.findByText('employee 4')).toBeInTheDocument()
+    expect(screen.getByText('employee 4')).toBeInTheDocument()
   })
 })

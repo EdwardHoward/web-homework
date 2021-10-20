@@ -10,7 +10,5 @@ export function formReducer (state, action) {
       }
     case 'set':
       return action.fields
-    case 'clear_field':
-      return { ...state, [action.field]: '' }
   }
 }

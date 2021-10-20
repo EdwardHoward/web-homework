@@ -2,12 +2,13 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './pages/home'
-import { Transactions, Transaction } from './pages/transactions'
+import { Transactions } from './pages/transactions'
 import { Users, User } from './pages/users'
 import { Merchants, Merchant } from './pages/merchants'
 import { CssBaseline, Divider, Drawer, List, Toolbar } from '@mui/material'
 import { Box } from '@mui/system'
 import { ListItemLink } from './components/linkListItem/LinkListItem'
+import { TransactionRoute } from './pages/transactions/transaction-page.route'
 
 function AppRouter () {
   return (
@@ -32,7 +33,7 @@ function AppRouter () {
         </Drawer>
         <div className='main-content' css={contentStyle}>
           <Route component={Home} exact path='/' />
-          <Route component={Transaction} exact path='/transactions/:id' />
+          <Route component={TransactionRoute} exact path='/transactions/:id' />
           <Route component={Transactions} exact path='/transactions' />
 
           <Route component={User} exact path='/users/:id' />

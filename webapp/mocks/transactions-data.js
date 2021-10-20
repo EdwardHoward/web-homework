@@ -1,53 +1,59 @@
 const transactions = [
   {
-    'id': '5d5c1f747e01cd704f18f863',
-    'user_id': 'employee4',
-    'user': {
-      'firstName': 'employee',
-      'lastName': '4'
-    },
-    'description': 'cleaningsupplies',
-    'merchant_id': 'walmart',
-    'merchant': {
-      'name': 'walmart'
-    },
-    'debit': true,
-    'credit': false,
     'amount': 150,
+    'credit': false,
+    'debit': true,
+    'description': 'cleaningsupplies',
+    'id': '5d5c1f747e01cd704f18f863',
+    'merchant': {
+      'id': '0',
+      'name': 'Walmart',
+      '__typename': 'Merchant'
+    },
+    'user': {
+      'id': '0',
+      'firstName': 'employee',
+      'lastName': '4',
+      '__typename': 'User'
+    },
     '__typename': 'Transaction'
   },
   {
-    'id': '5d5c1f747e01cd704f18f864',
-    'user_id': 'employee3',
-    'user': {
-      'firstName': 'employee',
-      'lastName': '3'
-    },
-    'description': 'refund',
-    'merchant_id': 'walmart',
-    'merchant': {
-      'name': 'walmart'
-    },
-    'debit': false,
-    'credit': true,
     'amount': 250,
+    'credit': false,
+    'debit': true,
+    'description': 'cleaningsupplies',
+    'id': '5d5c1f747e01cd704f18f864',
+    'merchant': {
+      'id': '1',
+      'name': 'Bestbuy',
+      '__typename': 'Merchant'
+    },
+    'user': {
+      'id': '1',
+      'firstName': 'employee',
+      'lastName': '5',
+      '__typename': 'User'
+    },
     '__typename': 'Transaction'
   },
   {
-    'id': '5d5c1f747e01cd704f18f865',
-    'user_id': 'employee5',
-    'user': {
-      'firstName': 'employee',
-      'lastName': '5'
-    },
-    'description': 'refund',
-    'merchant_id': 'walmart',
-    'merchant': {
-      'name': 'walmart'
-    },
-    'debit': false,
-    'credit': true,
     'amount': 100,
+    'credit': true,
+    'debit': false,
+    'description': 'refund',
+    'id': '5d5c1f747e01cd704f18f865',
+    'merchant': {
+      'id': '0',
+      'name': 'Walmart',
+      '__typename': 'Merchant'
+    },
+    'user': {
+      'id': '2',
+      'firstName': 'employee',
+      'lastName': '6',
+      '__typename': 'User'
+    },
     '__typename': 'Transaction'
   }
 ]
