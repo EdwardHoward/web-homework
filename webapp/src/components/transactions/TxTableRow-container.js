@@ -1,24 +1,17 @@
 import React from 'react'
-import { useMutation } from '@apollo/client'
-import UpdateTransaction from '../../gql/mutations/updateTransaction.gql'
-import DeleteTransaction from '../../gql/mutations/deleteTransaction.gql'
-import GetTransaction from '../../gql/transactions.gql'
 import { TxTableRow } from './TxTableRow'
 import { bool, number, shape, string } from 'prop-types'
+import { useTransactionActions } from '../../hooks/useTransactions'
 
 export function TxTableRowContainer ({ data }) {
-  const [updateTransaction] = useMutation(UpdateTransaction)
-  const [deleteTransaction] = useMutation(DeleteTransaction, {
-    variables: {
-      id: data.id
-    },
-    refetchQueries: [{
-      query: GetTransaction
-    }]
-  })
+  const { update: updateTransaction, remove: deleteTransaction } = useTransactionActions()
 
   function handleDeleteClick () {
-    deleteTransaction()
+    deleteTransaction({
+      variables: {
+        id: data.id
+      }
+    })
   }
 
   function handleUpdateClick (transaction) {

@@ -1,14 +1,14 @@
-import React, { useReducer, useState } from 'react'
+import React, { useState } from 'react'
 import { string, bool, number, shape, func } from 'prop-types'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import LinkIcon from '@mui/icons-material/Link'
 import { Link } from 'react-router-dom'
 import { EditableField, EditableCheckbox } from '../editableField'
-import { formReducer, formActions } from '../../reducers/formReducer'
 import css from '@emotion/css'
 import { toRomanNumeral } from '../../utils/roman-numerals'
 import { RowActions } from '../rowActions/rowActions'
+import { useForm } from '../../hooks/useForm'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
@@ -31,7 +31,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
   const [isEditing, setIsEditing] = useState(false)
   const [format, setFormat] = useState('numbers')
 
-  const [fields, dispatch] = useReducer(formReducer, {
+  const [fields, setField] = useForm({
     'description': { name: 'description', value: description },
     'debit': { name: 'debit', value: debit },
     'credit': { name: 'credit', value: credit },
@@ -67,10 +67,6 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         amount: Number(fields.amount.value)
       })
     }
-  }
-
-  function setValue (field, value) {
-    dispatch({ type: formActions.SET_FIELD_VALUE, field, value })
   }
 
   function handleAmountDoubleClick () {
@@ -112,7 +108,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         <EditableField
           editing={isEditing}
           onChange={({ target: { value } }) =>
-            setValue('description', value)
+            setField('description', value)
           }
           value={fields.description.value}
         />
@@ -126,7 +122,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         <EditableCheckbox
           editing={isEditing}
           onChange={({ target: { checked } }) =>
-            setValue('debit', checked)
+            setField('debit', checked)
           }
           value={fields.debit.value}
         />
@@ -136,7 +132,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         <EditableCheckbox
           editing={isEditing}
           onChange={({ target: { checked } }) =>
-            setValue('credit', checked)
+            setField('credit', checked)
           }
           value={fields.credit.value}
         />
@@ -152,7 +148,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
             type: isEditing ? 'number' : 'text'
           }}
           onChange={({ target: { value } }) =>
-            setValue('amount', value)
+            setField('amount', value)
           }
           value={
             isEditing
