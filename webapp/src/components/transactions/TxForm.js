@@ -1,14 +1,12 @@
-import React, { useReducer } from 'react'
-import { useMutation } from '@apollo/client'
+import React from 'react'
 import { Button, Checkbox, Divider, FormControlLabel, Grid, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import { func } from 'prop-types'
-import { formReducer } from '../../reducers/formReducer'
 import { MerchantDropdown } from '../merchants/MerchantDropdown'
 import { UserDropdown } from '../users/UserDropdown'
-import createTransactionMutation from '../../gql/mutations/createTransaction.gql'
-import GetTransaction from '../../gql/transactions.gql'
 import { css } from '@emotion/core'
+import { useForm } from '../../hooks/useForm'
+import { useTransactionActions } from '../../hooks/useTransactions'
 
 function defaultFields () {
   return {
@@ -26,23 +24,11 @@ const headerStyle = css`
 `
 
 export function TxForm ({ onSave }) {
-  const [createTransaction] = useMutation(createTransactionMutation, {
-    refetchQueries: [{
-      query: GetTransaction
-    }]
-  })
-
-  const [fields, dispatch] = useReducer(formReducer, defaultFields())
+  const { create: createTransaction } = useTransactionActions()
+  const [ fields, setField, setFields ] = useForm(defaultFields())
 
   function resetFields () {
-    dispatch({
-      type: 'set',
-      fields: defaultFields()
-    })
-  }
-
-  function setValue (field, value) {
-    dispatch({ type: 'set_field_value', field, value })
+    setFields(defaultFields())
   }
 
   function handleSave () {
@@ -74,7 +60,7 @@ export function TxForm ({ onSave }) {
             id='description'
             label='Description'
             onChange={({ target: { value } }) =>
-              setValue('description', value)
+              setField('description', value)
             }
             required
             value={fields['description'].value}
@@ -87,7 +73,7 @@ export function TxForm ({ onSave }) {
               <Checkbox checked={fields['debit'].value}
                 id='debit'
                 onChange={({ target: { checked } }) =>
-                  setValue('debit', checked)
+                  setField('debit', checked)
                 } variant='standard' />
             )}
             label='Debit'
@@ -99,7 +85,7 @@ export function TxForm ({ onSave }) {
               <Checkbox checked={fields['credit'].value}
                 id='credit'
                 onChange={({ target: { checked } }) =>
-                  setValue('credit', checked)
+                  setField('credit', checked)
                 } variant='standard' />
             )}
             label='Credit'
@@ -111,7 +97,7 @@ export function TxForm ({ onSave }) {
             id='amount'
             label='Amount'
             onChange={({ target: { value } }) =>
-              setValue('amount', value)
+              setField('amount', value)
             }
             required
             type='number'
@@ -122,13 +108,13 @@ export function TxForm ({ onSave }) {
         <Grid item xs={12}>
           <UserDropdown onChange={
             ({ target: { value } }) =>
-              setValue('userId', value)
+              setField('userId', value)
           } value={fields['userId'].value} />
         </Grid>
         <Grid item xs={12}>
           <MerchantDropdown onChange={
             ({ target: { value } }) =>
-              setValue('merchantId', value)
+              setField('merchantId', value)
           } value={fields['merchantId'].value} />
         </Grid>
       </Grid>

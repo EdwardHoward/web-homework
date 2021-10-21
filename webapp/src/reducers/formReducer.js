@@ -1,6 +1,11 @@
+export const formActions = Object.freeze({
+  SET_FIELD_VALUE: 'set_field_value',
+  SET_STATE: 'set_state'
+})
+
 export function formReducer (state, action) {
   switch (action.type) {
-    case 'set_field_value':
+    case formActions.SET_FIELD_VALUE:
       return {
         ...state,
         [action.field]: {
@@ -8,7 +13,10 @@ export function formReducer (state, action) {
           value: action.value
         }
       }
-    case 'set':
+    case formActions.SET_STATE:
       return action.fields
+
+    default:
+      return state
   }
 }
