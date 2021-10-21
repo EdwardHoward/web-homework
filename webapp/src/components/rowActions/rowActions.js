@@ -9,6 +9,7 @@ import { bool, func } from 'prop-types'
 
 const rowActionStyle = css`
   display: flex;
+  justify-content: center;
 `
 
 export function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onSaveClick }) {

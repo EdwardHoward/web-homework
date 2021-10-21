@@ -28,9 +28,9 @@ const styles = css`
 
 export function TxTableRow ({ data, onUpdate, onDelete }) {
   const { id, user, description, merchant, debit, credit, amount } = data
-  const [isEditing, setIsEditing] = useState(false)
   const [format, setFormat] = useState('numbers')
 
+  const [isEditing, setIsEditing] = useState(false)
   const [fields, setField] = useForm({
     'description': { name: 'description', value: description },
     'debit': { name: 'debit', value: debit },
@@ -94,7 +94,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
       css={styles}
       data-testid='tx-table-row'
     >
-      <TableCell data-testid={makeDataTestId(id, 'id')}>
+      <TableCell align='center' data-testid={makeDataTestId(id, 'id')}>
         <div>
           <Link to={`/transactions/${id}`}><LinkIcon /></Link>
         </div>
@@ -138,7 +138,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         />
       </TableCell>
 
-      <TableCell data-testid={makeDataTestId(id, 'amount')}>
+      <TableCell align='right' data-testid={makeDataTestId(id, 'amount')}>
         <EditableField
           editing={isEditing}
           inputProps={{
@@ -158,7 +158,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
         />
       </TableCell>
 
-      <TableCell data-testid={makeDataTestId(id, 'actions')}>
+      <TableCell align='center' data-testid={makeDataTestId(id, 'actions')}>
         <RowActions
           isEditing={isEditing}
           onCancelClick={handleCancelClick}
