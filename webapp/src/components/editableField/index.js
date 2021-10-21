@@ -1,2 +1,2 @@
 export { EditableField } from './EditableField'
-export { EditableCheckboxField } from './EditableCheckbox'
+export { EditableCheckbox } from './EditableCheckbox'
