@@ -15,7 +15,7 @@ export function MerchantTable ({ data }) {
       <Table aria-label='merchants table'>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
+            <TableCell padding='checkbox' />
             <TableCell align='left'>Name</TableCell>
           </TableRow>
         </TableHead>

@@ -15,12 +15,12 @@ export function TxTable ({ data }) {
       <Table aria-label='transaction table'>
         <TableHead>
           <TableRow>
-            <TableCell />
-            <TableCell align='left'>User</TableCell>
-            <TableCell align='left'>Description</TableCell>
-            <TableCell align='left'>Merchant</TableCell>
-            <TableCell align='left'>Debit</TableCell>
-            <TableCell align='left'>Credit</TableCell>
+            <TableCell padding='checkbox' />
+            <TableCell>User</TableCell>
+            <TableCell>Description</TableCell>
+            <TableCell>Merchant</TableCell>
+            <TableCell>Debit</TableCell>
+            <TableCell>Credit</TableCell>
             <TableCell align='right'>Amount</TableCell>
             <TableCell />
           </TableRow>

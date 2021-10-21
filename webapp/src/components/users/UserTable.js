@@ -15,9 +15,9 @@ export function UserTable ({ data }) {
       <Table aria-label='user table'>
         <TableHead>
           <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align='left'>First Name</TableCell>
-            <TableCell align='left'>Last Name</TableCell>
+            <TableCell padding='checkbox' />
+            <TableCell>First Name</TableCell>
+            <TableCell>Last Name</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
