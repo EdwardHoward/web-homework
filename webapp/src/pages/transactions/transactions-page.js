@@ -19,10 +19,10 @@ export function Transactions () {
             <TxTable data={data.transactions} />
           </Grid>
         </Grid>
+        <ModalButton label='Create New Transaction'>
+          <TxForm />
+        </ModalButton>
       </Query>
-      <ModalButton label='Create New Transaction'>
-        <TxForm />
-      </ModalButton>
     </Box>
   )
 }
