@@ -2,17 +2,13 @@ import React, { useReducer, useState } from 'react'
 import { string, bool, number, shape, func } from 'prop-types'
 import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
-import IconButton from '@mui/material/IconButton'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import SaveIcon from '@mui/icons-material/Save'
 import LinkIcon from '@mui/icons-material/Link'
-import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
 import { EditableField, EditableCheckbox } from '../editableField'
 import { formReducer, formActions } from '../../reducers/formReducer'
 import css from '@emotion/css'
 import { toRomanNumeral } from '../../utils/roman-numerals'
+import { RowActions } from '../rowActions/rowActions'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
@@ -174,36 +170,6 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
       </TableCell>
     </TableRow>
   )
-}
-
-const rowActionStyle = css`
-  display: flex;
-`
-
-function RowActions ({ isEditing, onEditClick, onDeleteClick, onCancelClick, onSaveClick }) {
-  if (!isEditing) {
-    return (
-      <div css={rowActionStyle}>
-        <IconButton aria-label='Edit' onClick={onEditClick}>
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label='Delete' onClick={onDeleteClick}>
-          <DeleteIcon />
-        </IconButton>
-      </div>
-    )
-  } else {
-    return (
-      <div css={rowActionStyle}>
-        <IconButton aria-label='Cancel' onClick={onCancelClick}>
-          <CloseIcon />
-        </IconButton>
-        <IconButton aria-label='Save' onClick={onSaveClick}>
-          <SaveIcon />
-        </IconButton>
-      </div>
-    )
-  }
 }
 
 TxTableRow.propTypes = {
