@@ -12,26 +12,39 @@ import { RowActions } from '../rowActions/rowActions'
 
 const makeDataTestId = (transactionId, fieldName) => `transaction-${transactionId}-${fieldName}`
 
+function formatCurrency (format, num) {
+  if (format === 'roman') {
+    return toRomanNumeral(num)
+  } else {
+    return num.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+  }
+}
+
 const styles = css`
   &:last-child td, &:last-child th {
     border: none;
   }
 `
+
 export function TxTableRow ({ data, onUpdate, onDelete }) {
   const { id, user, description, merchant, debit, credit, amount } = data
   const [isEditing, setIsEditing] = useState(false)
-  const [format, setFormat] = useState('normal')
+  const [format, setFormat] = useState('numbers')
 
   const [fields, dispatch] = useReducer(formReducer, {
-    'description': { name: 'description', value: description, error: false },
-    'debit': { name: 'debit', value: debit, error: false },
-    'credit': { name: 'credit', value: credit, error: false },
-    'amount': { name: 'amount', value: amount, error: false },
-    'merchantId': { name: 'merchantId', value: merchant.id, error: false }
+    'description': { name: 'description', value: description },
+    'debit': { name: 'debit', value: debit },
+    'credit': { name: 'credit', value: credit },
+    'amount': { name: 'amount', value: amount },
+    'merchantId': { name: 'merchantId', value: merchant.id }
   })
 
   function handleEditClick () {
     setIsEditing(true)
+  }
+
+  function handleCancelClick () {
+    setIsEditing(false)
   }
 
   function handleDeleteClick () {
@@ -56,29 +69,13 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
     }
   }
 
-  function handleCancelClick () {
-    setIsEditing(false)
-  }
-
   function setValue (field, value) {
     dispatch({ type: formActions.SET_FIELD_VALUE, field, value })
   }
 
-  function formatCurrency (num) {
-    if (isEditing) {
-      return num
-    } else {
-      if (format === 'roman') {
-        return toRomanNumeral(num)
-      } else {
-        return num.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
-      }
-    }
-  }
-
   function handleAmountDoubleClick () {
     if (format === 'roman') {
-      setFormat('number')
+      setFormat('numbers')
     } else {
       setFormat('roman')
     }
@@ -101,51 +98,53 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
       css={styles}
       data-testid='tx-table-row'
     >
-      <TableCell align='left' data-testid={makeDataTestId(id, 'id')}>
+      <TableCell data-testid={makeDataTestId(id, 'id')}>
         <div>
           <Link to={`/transactions/${id}`}><LinkIcon /></Link>
         </div>
       </TableCell>
-      <TableCell align='left' data-testid={makeDataTestId(id, 'userId')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'user')}>
         <div>{`${user.firstName} ${user.lastName}`}</div>
       </TableCell>
-      <TableCell align='left' data-testid={makeDataTestId(id, 'description')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'description')}>
         <EditableField
           editing={isEditing}
-          error={fields.amount.error}
           onChange={({ target: { value } }) =>
             setValue('description', value)
           }
           value={fields.description.value}
         />
       </TableCell>
-      <TableCell align='left' data-testid={makeDataTestId(id, 'merchant')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'merchant')}>
         <div>{merchant.name}</div>
       </TableCell>
-      <TableCell align='left' data-testid={makeDataTestId(id, 'debit')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'debit')}>
         <EditableCheckbox
           editing={isEditing}
-          error={fields.amount.error}
           onChange={({ target: { checked } }) =>
             setValue('debit', checked)
           }
           value={fields.debit.value}
         />
       </TableCell>
-      <TableCell align='left' data-testid={makeDataTestId(id, 'credit')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'credit')}>
         <EditableCheckbox
           editing={isEditing}
-          error={fields.amount.error}
           onChange={({ target: { checked } }) =>
             setValue('credit', checked)
           }
           value={fields.credit.value}
         />
       </TableCell>
-      <TableCell align='right' data-testid={makeDataTestId(id, 'amount')}>
+
+      <TableCell data-testid={makeDataTestId(id, 'amount')}>
         <EditableField
           editing={isEditing}
-          error={fields.amount.error}
           inputProps={{
             sx: { textAlign: 'right' },
             onDoubleClick: handleAmountDoubleClick,
@@ -155,11 +154,15 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
           onChange={({ target: { value } }) =>
             setValue('amount', value)
           }
-          value={formatCurrency(Number(fields.amount.value))}
+          value={
+            isEditing
+              ? fields.amount.value
+              : formatCurrency(format, Number(fields.amount.value))
+          }
         />
       </TableCell>
 
-      <TableCell align='right' data-testid={makeDataTestId(id, 'actions')}>
+      <TableCell data-testid={makeDataTestId(id, 'actions')}>
         <RowActions
           isEditing={isEditing}
           onCancelClick={handleCancelClick}
