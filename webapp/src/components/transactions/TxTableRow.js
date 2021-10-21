@@ -10,7 +10,7 @@ import LinkIcon from '@mui/icons-material/Link'
 import CloseIcon from '@mui/icons-material/Close'
 import { Link } from 'react-router-dom'
 import { EditableField, EditableCheckbox } from '../editableField'
-import { formReducer } from '../../reducers/formReducer'
+import { formReducer, formActions } from '../../reducers/formReducer'
 import css from '@emotion/css'
 import { toRomanNumeral } from '../../utils/roman-numerals'
 
@@ -65,7 +65,7 @@ export function TxTableRow ({ data, onUpdate, onDelete }) {
   }
 
   function setValue (field, value) {
-    dispatch({ type: 'set_field_value', field, value })
+    dispatch({ type: formActions.SET_FIELD_VALUE, field, value })
   }
 
   function formatCurrency (num) {

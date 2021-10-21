@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client'
 import { Button, Checkbox, Divider, FormControlLabel, Grid, TextField } from '@mui/material'
 import { Box } from '@mui/system'
 import { func } from 'prop-types'
-import { formReducer } from '../../reducers/formReducer'
+import { formReducer, formActions } from '../../reducers/formReducer'
 import { MerchantDropdown } from '../merchants/MerchantDropdown'
 import { UserDropdown } from '../users/UserDropdown'
 import createTransactionMutation from '../../gql/mutations/createTransaction.gql'
@@ -36,13 +36,13 @@ export function TxForm ({ onSave }) {
 
   function resetFields () {
     dispatch({
-      type: 'set',
+      type: formActions.SET_STATE,
       fields: defaultFields()
     })
   }
 
   function setValue (field, value) {
-    dispatch({ type: 'set_field_value', field, value })
+    dispatch({ type: formActions.SET_FIELD_VALUE, field, value })
   }
 
   function handleSave () {
