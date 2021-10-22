@@ -15,6 +15,12 @@ const letters = [
 ]
 
 export function toRomanNumeral (num) {
+  if (num <= 0 || num > 3999) {
+    console.warn('num can only be between 0 and 3999')
+
+    return num
+  }
+
   let roman = ''
 
   for (let letterIndex in letters) {

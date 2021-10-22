@@ -1,6 +1,18 @@
 import { toRomanNumeral } from './roman-numerals'
 
 describe('Roman Numeral Util', () => {
+  it('should return input if 0', () => {
+    expect(toRomanNumeral(0)).toBe(0)
+  })
+
+  it('should return input if above 3999', () => {
+    expect(toRomanNumeral(4000)).toBe(4000)
+  })
+
+  it('should return input if below 0', () => {
+    expect(toRomanNumeral(-1)).toBe(-1)
+  })
+
   it('should convert 1 to I', () => {
     expect(toRomanNumeral(1)).toBe('I')
   })
