@@ -85,7 +85,13 @@ describe('TxTableRow', () => {
     expect(screen.getByDisplayValue('CL')).toBeInTheDocument()
   })
 
-  it('should allow editing when in editing mode', () => {
+  it('should now allow inputs to be changed when not in editing mode', () => {
+    render(<TxTableRow data={transactions[0]} />)
+
+    expect(screen.getByDisplayValue('$150.00').attributes['readOnly']).toBeTruthy()
+  })
+
+  it('should allow inputs to be changed when in editing mode', () => {
     render(<TxTableRow data={transactions[0]} />)
 
     fireEvent.click(screen.getByLabelText('Edit'))
@@ -93,6 +99,20 @@ describe('TxTableRow', () => {
     fireEvent.change(screen.getByDisplayValue('150'), { target: { value: '300' } })
 
     expect(screen.getByDisplayValue('300')).toBeInTheDocument()
+  })
+
+  it('should not allow checkboxes to be changed when not in editing mode', () => {
+    render(<TxTableRow data={transactions[0]} />)
+
+    expect(screen.getAllByTestId('editable-checkbox')[0]).toBeDisabled()
+  })
+
+  it('should allow checkboxes to be changed if in editing mode', () => {
+    render(<TxTableRow data={transactions[0]} />)
+
+    fireEvent.click(screen.getByLabelText('Edit'))
+
+    expect(screen.getAllByTestId('editable-checkbox')[0]).not.toBeDisabled()
   })
 
   it('should save values when in editing mode', () => {
